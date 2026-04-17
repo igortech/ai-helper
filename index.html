@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нейропомощник</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Нейропомощник</h1>
+            <p>Ваш интеллектуальный помощник для повседневных задач</p>
+        </header>
+
+        <main>
+            <div class="system-prompt">
+                <label for="systemPrompt">Системный промпт:</label>
+                <textarea id="systemPrompt" placeholder="Введите системный промпт (например: Ты - полезный ассистент, который помогает с планированием дня и генерацией идей)">Ты - полезный ассистент, который помогает с планированием дня, созданием чек-листов, генерацией текстовых шаблонов и разработкой идей для учёбы и работы. Отвечай кратко и по делу.</textarea>
+            </div>
+
+            <div class="chat-container">
+                <div class="output-area" id="outputArea">
+                    <div class="welcome-message">
+                        <p>👋 Добро пожаловать в Нейропомощник!</p>
+                        <p>Задайте мне любой вопрос о планировании дня, создании чек-листов или генерации идей.</p>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <form id="chatForm">
+                        <div class="input-group">
+                            <textarea 
+                                id="userInput" 
+                                placeholder="Введите ваш запрос здесь..." 
+                                rows="3"
+                                required
+                            ></textarea>
+                            <button type="submit" id="sendButton" disabled>
+                                <span class="button-text">Отправить</span>
+                                <span class="loading-spinner" style="display: none;">⏳</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by Google Gemini API</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

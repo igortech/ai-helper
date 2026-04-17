@@ -1,0 +1,28 @@
+{
+  "name": "neuro-assistant",
+  "version": "1.0.0",
+  "description": "Нейропомощник - веб-приложение для повседневных задач с использованием Google Gemini API",
+  "main": "index.html",
+  "scripts": {
+    "dev": "live-server --port=3001 --open=/index.html",
+    "build": "echo 'Build completed - files are ready for deployment'",
+    "serve": "http-server . -p 8080 -o",
+    "start": "npm run dev"
+  },
+  "keywords": [
+    "ai",
+    "assistant",
+    "gemini",
+    "web-app",
+    "productivity"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
