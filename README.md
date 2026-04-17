@@ -90,7 +90,3 @@ ai-helper/
 localStorage.removeItem('geminiApiKey');
 location.reload();
 ```
-
-## Лицензия
-
-MIT License
