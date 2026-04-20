@@ -7,7 +7,10 @@
     "dev": "live-server --port=3001 --open=/index.html",
     "build": "echo 'Build completed - files are ready for deployment'",
     "serve": "http-server . -p 8080 -o",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
   },
   "keywords": [
     "ai",
@@ -19,8 +22,11 @@
   "author": "Your Name",
   "license": "MIT",
   "devDependencies": {
+    "@vitest/ui": "^4.1.4",
+    "http-server": "^14.1.1",
+    "jsdom": "^29.0.2",
     "live-server": "^1.2.2",
-    "http-server": "^14.1.1"
+    "vitest": "^4.1.4"
   },
   "engines": {
     "node": ">=14.0.0"
