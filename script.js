@@ -6,6 +6,7 @@ class NeuroAssistant {
         this.userScrolledUp = false;
         this.initializeElements();
         this.bindEvents();
+        this.loadTheme();
         this.loadApiKey();
         this.loadChatHistory();
         this.initMarked();
@@ -23,6 +24,10 @@ class NeuroAssistant {
         this.tokenInfo = document.getElementById('tokenInfo');
         this.exportBtn = document.getElementById('exportBtn');
         this.clearBtn = document.getElementById('clearBtn');
+        this.apiKeyInput = document.getElementById('apiKeyInput');
+        this.checkKeyButton = document.getElementById('checkKeyButton');
+        this.apiKeyStatus = document.getElementById('apiKeyStatus');
+        this.themeToggle = document.getElementById('themeToggle');
     }
 
     initMarked() {
@@ -32,6 +37,36 @@ class NeuroAssistant {
                 gfm: true
             });
         }
+    }
+
+    loadTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme) {
+            this.setTheme(savedTheme);
+        } else if (prefersDark) {
+            this.setTheme('dark');
+        } else {
+            this.setTheme('light');
+        }
+    }
+
+    setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        
+        if (theme === 'dark') {
+            this.themeToggle.textContent = '☀️ Светлая тема';
+        } else {
+            this.themeToggle.textContent = '🌙 Темная тема';
+        }
+    }
+
+    toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
     }
 
     loadChatHistory() {
@@ -146,6 +181,21 @@ class NeuroAssistant {
         if (savedPrompt) {
             this.systemPrompt.value = savedPrompt;
         }
+
+        this.checkKeyButton.addEventListener('click', () => {
+            this.checkApiKey();
+        });
+
+        this.apiKeyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.checkApiKey();
+            }
+        });
+
+        this.themeToggle.addEventListener('click', () => {
+            this.toggleTheme();
+        });
     }
 
     loadApiKey() {
