@@ -1,3 +1,71 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --text-color: #333;
+    --container-bg: white;
+    --header-color: white;
+    --card-bg: white;
+    --card-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    --label-color: #555;
+    --input-border: #e1e5e9;
+    --input-focus-border: #667eea;
+    --input-bg: white;
+    --button-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --button-text: white;
+    --message-user-bg: #f0f2f5;
+    --message-assistant-bg: #e8f4fd;
+    --message-text: #333;
+    --message-user-label: #667eea;
+    --message-assistant-label: #2196f3;
+    --input-area-bg: #f8f9fa;
+    --error-bg: #ffebee;
+    --error-text: #c62828;
+    --error-border: #c62828;
+    --status-valid-bg: #e8f5e9;
+    --status-valid-text: #2e7d32;
+    --status-valid-border: #2e7d32;
+    --status-error-bg: #ffebee;
+    --status-error-text: #c62828;
+    --status-error-border: #c62828;
+    --status-loading-bg: #e3f2fd;
+    --status-loading-text: #1976d2;
+    --status-loading-border: #1976d2;
+    --welcome-text: #666;
+}
+
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    --text-color: #e0e0e0;
+    --container-bg: #1e1e2e;
+    --header-color: #e0e0e0;
+    --card-bg: #2d2d3d;
+    --card-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    --label-color: #b0b0b0;
+    --input-border: #3d3d4d;
+    --input-focus-border: #667eea;
+    --input-bg: #2d2d3d;
+    --button-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --button-text: white;
+    --message-user-bg: #3d3d4d;
+    --message-assistant-bg: #2d3d4d;
+    --message-text: #e0e0e0;
+    --message-user-label: #a78bfa;
+    --message-assistant-label: #60a5fa;
+    --input-area-bg: #2d2d3d;
+    --error-bg: #3d2d2d;
+    --error-text: #ef5350;
+    --error-border: #ef5350;
+    --status-valid-bg: #2d3d2d;
+    --status-valid-text: #66bb6a;
+    --status-valid-border: #66bb6a;
+    --status-error-bg: #3d2d2d;
+    --status-error-text: #ef5350;
+    --status-error-border: #ef5350;
+    --status-loading-bg: #2d3d4d;
+    --status-loading-text: #42a5f5;
+    --status-loading-border: #42a5f5;
+    --welcome-text: #b0b0b0;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,9 +74,10 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--bg-gradient);
     min-height: 100vh;
-    color: #333;
+    color: var(--text-color);
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .container {
@@ -23,7 +92,10 @@ body {
 header {
     text-align: center;
     margin-bottom: 30px;
-    color: white;
+    color: var(--header-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header h1 {
@@ -38,6 +110,21 @@ header p {
     opacity: 0.9;
 }
 
+.theme-toggle {
+    background: var(--card-bg);
+    border: 2px solid var(--input-border);
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    border-color: var(--input-focus-border);
+}
+
 main {
     flex: 1;
     display: flex;
@@ -46,10 +133,10 @@ main {
 }
 
 .system-prompt {
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    box-shadow: var(--card-shadow);
     backdrop-filter: blur(10px);
 }
 
@@ -57,33 +144,35 @@ main {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #555;
+    color: var(--label-color);
 }
 
 .system-prompt textarea {
     width: 100%;
     padding: 12px;
-    border: 2px solid #e1e5e9;
+    border: 2px solid var(--input-border);
     border-radius: 8px;
     font-size: 14px;
     resize: vertical;
     min-height: 60px;
     transition: border-color 0.3s ease;
+    background: var(--input-bg);
+    color: var(--text-color);
 }
 
 .system-prompt textarea:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--input-focus-border);
 }
 
 .chat-container {
     flex: 1;
     display: flex;
     flex-direction: column;
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    box-shadow: var(--card-shadow);
 }
 
 .output-area {
@@ -96,7 +185,7 @@ main {
 
 .welcome-message {
     text-align: center;
-    color: #666;
+    color: var(--welcome-text);
     padding: 40px 20px;
 }
 
@@ -113,34 +202,34 @@ main {
 }
 
 .message.user {
-    background: #f0f2f5;
+    background: var(--message-user-bg);
     margin-left: 20%;
     text-align: right;
 }
 
 .message.assistant {
-    background: #e8f4fd;
+    background: var(--message-assistant-bg);
     margin-right: 20%;
 }
 
 .message strong {
     display: block;
     margin-bottom: 5px;
-    color: #333;
+    color: var(--message-text);
 }
 
 .message.user strong {
-    color: #667eea;
+    color: var(--message-user-label);
 }
 
 .message.assistant strong {
-    color: #2196f3;
+    color: var(--message-assistant-label);
 }
 
 .input-area {
     padding: 20px;
-    border-top: 1px solid #e1e5e9;
-    background: #f8f9fa;
+    border-top: 1px solid var(--input-border);
+    background: var(--input-area-bg);
 }
 
 .input-group {
@@ -152,7 +241,7 @@ main {
 .input-group textarea {
     flex: 1;
     padding: 12px;
-    border: 2px solid #e1e5e9;
+    border: 2px solid var(--input-border);
     border-radius: 8px;
     font-size: 16px;
     resize: vertical;
@@ -160,17 +249,19 @@ main {
     max-height: 120px;
     transition: border-color 0.3s ease;
     font-family: inherit;
+    background: var(--input-bg);
+    color: var(--text-color);
 }
 
 .input-group textarea:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--input-focus-border);
 }
 
 #sendButton {
     padding: 12px 24px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: var(--button-gradient);
+    color: var(--button-text);
     border: none;
     border-radius: 8px;
     font-size: 16px;
@@ -199,18 +290,18 @@ main {
 footer {
     text-align: center;
     margin-top: 20px;
-    color: white;
+    color: var(--header-color);
     opacity: 0.8;
     font-size: 0.9rem;
 }
 
 .error-message {
-    background: #ffebee;
-    color: #c62828;
+    background: var(--error-bg);
+    color: var(--error-text);
     padding: 15px;
     border-radius: 8px;
     margin: 10px 0;
-    border-left: 4px solid #c62828;
+    border-left: 4px solid var(--error-border);
 }
 
 @keyframes fadeIn {
