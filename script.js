@@ -1,4 +1,4 @@
-class NeuroAssistant {
+export class NeuroAssistant {
     constructor() {
         this.apiKey = null;
         this.messages = [];
