@@ -11,6 +11,18 @@ const localStorageMock = {
 
 global.localStorage = localStorageMock;
 
+// Mock window.matchMedia
+global.window.matchMedia = vi.fn().mockImplementation(query => ({
+  matches: false,
+  media: query,
+  onchange: null,
+  addListener: vi.fn(),
+  removeListener: vi.fn(),
+  addEventListener: vi.fn(),
+  removeEventListener: vi.fn(),
+  dispatchEvent: vi.fn(),
+}));
+
 // Mock DOM environment
 document.body.innerHTML = `
   <form id="chatForm">
