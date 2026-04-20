@@ -26,6 +26,10 @@ document.body.innerHTML = `
   <div id="tokenInfo"></div>
   <button id="exportBtn"></button>
   <button id="clearBtn"></button>
+  <input id="apiKeyInput" />
+  <button id="checkKeyButton"></button>
+  <div id="apiKeyStatus"></div>
+  <button id="themeToggle"></button>
 `;
 
 describe('NeuroAssistant', () => {
@@ -52,6 +56,10 @@ describe('NeuroAssistant', () => {
       <div id="tokenInfo"></div>
       <button id="exportBtn"></button>
       <button id="clearBtn"></button>
+      <input id="apiKeyInput" />
+      <button id="checkKeyButton"></button>
+      <div id="apiKeyStatus"></div>
+      <button id="themeToggle"></button>
     `;
   });
 
