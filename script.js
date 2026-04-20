@@ -23,6 +23,9 @@ class NeuroAssistant {
         this.tokenInfo = document.getElementById('tokenInfo');
         this.exportBtn = document.getElementById('exportBtn');
         this.clearBtn = document.getElementById('clearBtn');
+        this.apiKeyInput = document.getElementById('apiKeyInput');
+        this.checkKeyButton = document.getElementById('checkKeyButton');
+        this.apiKeyStatus = document.getElementById('apiKeyStatus');
     }
 
     initMarked() {
@@ -146,21 +149,72 @@ class NeuroAssistant {
         if (savedPrompt) {
             this.systemPrompt.value = savedPrompt;
         }
+
+        this.checkKeyButton.addEventListener('click', () => {
+            this.checkApiKey();
+        });
+
+        this.apiKeyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.checkApiKey();
+            }
+        });
     }
 
     loadApiKey() {
         this.apiKey = localStorage.getItem('geminiApiKey');
         
-        if (!this.apiKey) {
-            this.apiKey = prompt('Введите ваш Google Gemini API ключ:');
-            if (this.apiKey) {
-                localStorage.setItem('geminiApiKey', this.apiKey);
-            } else {
-                this.showError('API ключ необходим для работы приложения. Обновите страницу и введите ключ.');
-            }
+        if (this.apiKey) {
+            this.apiKeyInput.value = this.apiKey;
+            this.showApiKeyStatus('valid', 'API ключ загружен');
         }
         
         this.sendButton.disabled = !this.userInput.value.trim();
+    }
+
+    validateApiKeyFormat(key) {
+        // Google Gemini API keys typically start with AIza
+        const pattern = /^AIza[A-Za-z0-9_-]{35}$/;
+        return pattern.test(key);
+    }
+
+    async checkApiKey() {
+        const key = this.apiKeyInput.value.trim();
+        
+        if (!key) {
+            this.showApiKeyStatus('error', 'Пожалуйста, введите API ключ');
+            return;
+        }
+        
+        if (!this.validateApiKeyFormat(key)) {
+            this.showApiKeyStatus('error', 'Неверный формат ключа. Ключ должен начинаться с AIza и содержать 39 символов');
+            return;
+        }
+        
+        this.showApiKeyStatus('loading', 'Проверка ключа...');
+        
+        try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${key}`);
+            
+            if (response.ok) {
+                this.apiKey = key;
+                localStorage.setItem('geminiApiKey', key);
+                this.showApiKeyStatus('valid', 'API ключ действителен');
+                this.sendButton.disabled = !this.userInput.value.trim();
+            } else {
+                const errorData = await response.json();
+                const errorMsg = errorData.error?.message || 'Ключ недействителен';
+                this.showApiKeyStatus('error', `Ошибка: ${errorMsg}`);
+            }
+        } catch (error) {
+            this.showApiKeyStatus('error', 'Ошибка сети. Проверьте подключение к интернету.');
+        }
+    }
+
+    showApiKeyStatus(status, message) {
+        this.apiKeyStatus.textContent = message;
+        this.apiKeyStatus.className = 'api-key-status visible ' + status;
     }
 
     async handleSubmit() {

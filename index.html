@@ -15,6 +15,19 @@
         </header>
 
         <main>
+            <div class="api-key-section">
+                <label for="apiKeyInput">Google Gemini API ключ:</label>
+                <div class="api-key-input-group">
+                    <input 
+                        type="password" 
+                        id="apiKeyInput" 
+                        placeholder="Введите ваш API ключ (начинается с AIza)"
+                    />
+                    <button type="button" id="checkKeyButton">Проверить ключ</button>
+                </div>
+                <div id="apiKeyStatus" class="api-key-status"></div>
+            </div>
+
             <div class="system-prompt">
                 <label for="systemPrompt">Системный промпт:</label>
                 <textarea id="systemPrompt" placeholder="Введите системный промпт (например: Ты - полезный ассистент, который помогает с планированием дня и генерацией идей)">Ты - полезный ассистент, который помогает с планированием дня, созданием чек-листов, генерацией текстовых шаблонов и разработкой идей для учёбы и работы. Отвечай кратко и по делу.</textarea>
